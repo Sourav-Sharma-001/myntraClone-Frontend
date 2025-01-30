@@ -1,9 +1,14 @@
 import React from 'react'
 import campus from '../assets/campus.webp'
+import { useSelector, useDispatch } from 'react-redux'
 
 
 
 export default function PlaceOrderChild(bagProducts) {
+
+  const items = useSelector((state) => state.addItems);
+  console.log(items);
+  const dispatch = useDispatch()
   
   return (
     <>

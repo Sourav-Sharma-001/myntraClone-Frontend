@@ -9,6 +9,8 @@ import ViewProducts from './Components/ViewProducts';
 import AddToBag from './Components/AddToBag';
 import PlaceOrder from './Components/PlaceOrder';
 import Address from './Components/Address';
+import {store} from './Components/Redux/store'
+import { Provider } from 'react-redux'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -40,11 +42,11 @@ const allRoutes = createBrowserRouter([
 ]);
 root.render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
+    <Provider store={store}>
       <RouterProvider router={allRoutes}>
         <App />
       </RouterProvider>
-    {/* </Provider> */}
+    </Provider>
   </React.StrictMode>
 );
 
