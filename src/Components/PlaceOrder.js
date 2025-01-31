@@ -3,9 +3,20 @@ import image from '../assets/logo.png';
 import secure from '../assets/secure.png';
 import { Link } from 'react-router-dom';
 import PlaceOrderChild from './PlaceOrderChild';
+import { useSelector } from 'react-redux';
 
 
 export default function PlaceOrder() {   
+
+  const items = useSelector((state) => state.addItems);
+  console.log(items);
+
+  const getItems = items.map((item, index) => {
+    return(
+      <PlaceOrderChild key={index} item={item}/>
+    );    
+  }); 
+  
 
   return (
     <>
@@ -29,8 +40,8 @@ export default function PlaceOrder() {
 
 
       <div className='flex my-10'>
-        <div className='w-[10%]'></div>
-        <PlaceOrderChild />
+        <div className='w-[10%]'></div>        
+        {getItems}
 
 
         <div className='w-[2%]'></div>

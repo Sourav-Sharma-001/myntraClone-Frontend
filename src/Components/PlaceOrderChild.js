@@ -1,15 +1,14 @@
 import React from 'react'
 import campus from '../assets/campus.webp'
 import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment } from './Redux/reducer'
 
 
 
-export default function PlaceOrderChild(bagProducts) {
-
-  const items = useSelector((state) => state.addItems);
-  console.log(items);
+export default function PlaceOrderChild({item}) { 
+  const count = useSelector((state) => state.counter.value)
   const dispatch = useDispatch()
-  
+
   return (
     <>
       <div className='w-[48%] h-[200px] place-content-center border-[#cdcfd7] border-[1px] bg-white'>
@@ -18,8 +17,8 @@ export default function PlaceOrderChild(bagProducts) {
             <img className='h-[100%]' src={campus} alt=''/>
           </div>
           <div>
-            <div className='font-bold text-[14px] text-[#535766] py-1'>enter name</div>
-            <div className='text-[14px]'>enter title</div>
+            <div className='font-bold text-[14px] text-[#535766] py-1'>{item.name}</div>
+            <div className='text-[14px]'>{item.title}</div>
             <div className='text-[12px] text-[#535766]'>Sold by: Flashstar Commerce</div>
             <div className='flex py-3 items-center'>
               <div className='px-2'>
@@ -33,10 +32,10 @@ export default function PlaceOrderChild(bagProducts) {
               </div>
               <div className='flex px-2 items-center'>
                 <label className='text-sm font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1' htmlFor="size">Qty:</label>
-                <div className='text-[14px] font-bold text-green-600 bg-[#F5F5F6] mr-2 px-3 py-1'>2</div>                
+                <div className='text-[14px] font-bold text-green-600 bg-[#F5F5F6] mr-2 px-3 py-1'>{count}</div>                
                 <div className='flex'>
-                  <button className='font-bold  ml-2 text-[#535766] px-3 py-1 bg-[#F5F5F6] border-[2px]'>-</button>
-                  <button className='font-bold text-[#535766] px-3 py-1 bg-[#F5F5F6] border-[2px]'>+</button>
+                  <button className='font-bold  ml-2 text-[#535766] px-3 py-1 bg-[#F5F5F6] border-[2px]' onClick={() => dispatch(decrement())}>-</button>
+                  <button className='font-bold text-[#535766] px-3 py-1 bg-[#F5F5F6] border-[2px]' onClick={() => dispatch(increment())}>+</button>
                 </div>
               </div>
             </div>

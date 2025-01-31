@@ -13,7 +13,9 @@ export const counterSlice = createSlice({
       state.value += 1;
     },
     decrement: (state) => {
-      state.value -= 1;
+      if(state.value > 1) {
+        state.value -= 1;
+      }
     },
     incrementByAmount: (state, action) => {
       state.value += action.payload;
@@ -29,7 +31,11 @@ export const AddItems = createSlice({
   initialState: initialItemsState,
   reducers: {
     addItem: (state, action) => {
-      state.push({ name: action.payload.name, title: action.payload.title });
+      state.push({        
+        name: action.payload.name, 
+        title: action.payload.title,
+        price: action.payload.price
+      });
     },
   },
 });
