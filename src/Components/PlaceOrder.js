@@ -68,7 +68,7 @@ export default function PlaceOrder() {
             </div>
             <div className='py-1'>
               <div className='flex justify-between text-[14px]'>
-                <div className='text-[#535766]'>Platform Fee <strong className='text-[#F16565] font-bold px-1'>Know More</strong></div>
+                <div className='text-[#535766]'>Shipping Fee <strong className='text-[#F16565] font-bold px-1'>Know More</strong></div>
                 <div className='text-[#5CA695] text-[14px]'>FREE</div>                
               </div>
               <div className='text-[#535766] text-[12px]'>Free Shipping for you</div>

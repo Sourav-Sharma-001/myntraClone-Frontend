@@ -31,18 +31,30 @@ export const AddItems = createSlice({
   initialState: initialItemsState,
   reducers: {
     addItem: (state, action) => {
-      state.push({        
+      state.push({  
+        id: action.payload.id,
+        img: action.payload.img,      
         name: action.payload.name, 
         title: action.payload.title,
-        price: action.payload.price
+        price: action.payload.price,
+        qty: action.payload.qty,
+        size: action.payload.size,
+        discount: action.payload.discount
       });
     },
+    updateQty: (state, action) => {
+      state.forEach((s) => {
+        if(action.payload.id === s.id) {
+          s.qty += action.payload.qty;
+        }
+      })
+    }
   },
 });
 
 // Exporting action creators
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
-export const { addItem } = AddItems.actions;
+export const { addItem, updateQty } = AddItems.actions;
 
 // Exporting reducers
 export const counterReducer = counterSlice.reducer;

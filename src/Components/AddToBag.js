@@ -2,26 +2,20 @@ import Navbar from './Navbar';
 import AddToBagChild from './AddToBagChild';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { addItem } from './Redux/reducer';
-import { increment } from './Redux/reducer'
+import { FaArrowRight } from "react-icons/fa";
 
 
 export default function AddToBag() {
   const { id } = useParams();
   const [bagProducts, setBagProducts] = useState([]); 
   const [selectedSize, setSelectedSize] = useState(38); 
-  const count = useSelector((state) => state.counter.value)
-  const dispatch = useDispatch()
-
-  const handleAddItem = (item) => {
-    dispatch(addItem({      
-      name: item.name,
-      title: item.title,
-      price: item.price
-    }));
-  };  
+  const count = useSelector((state) => state.counter.value); 
+  const storeItems = useSelector((state) => state.addItems);
+  const [inCart, setInCart] = useState(false);
+  const dispatch = useDispatch();
 
   const getBagProducts = () => {
     axios.get(`http://localhost:4001/getProductDetails?id=${id}`)
@@ -33,13 +27,32 @@ export default function AddToBag() {
 
   useEffect(() => {
     getBagProducts();
+    const itemExists = storeItems.some((si) => si.id === id);
+    setInCart(itemExists);
   }, []);
 
   const bagPro = bagProducts.length > 0 && bagProducts[0].image
-  ? JSON.parse(bagProducts[0].image).map((product, index) => (
-      <AddToBagChild key={index} bPro={product} />
-    ))
+  ? JSON.parse(bagProducts[0].image).map((product, index) => {
+    return <AddToBagChild key={index} bPro={product} />
+  })
   : <></>;
+
+
+  const handleAddItem = (item) => {
+    if(!inCart) {
+      dispatch(addItem({  
+        id : id,
+        img: `data:image/jpeg;base64,${JSON.parse(bagProducts[0].image)[0]}`,   
+        name: item.name,
+        title: item.title,
+        price: item.price,
+        qty: 1,
+        size: selectedSize,
+        discount: item.discount     
+      }));
+      setInCart(true);
+    }    
+  };  
 
 
   return (
@@ -66,7 +79,7 @@ export default function AddToBag() {
             <hr/>
             <div className='flex flex-row py-2'>
               <div className='text-2xl font-bold'>&#8377; {bagProducts[0]?.price}</div>
-              <div className='text-xl font-bold text-[#FF905A] pl-2 pt-0.5'>(40% OFF)</div>
+              <div className='text-xl font-bold text-[#FF905A] pl-2 pt-0.5'>{bagProducts[0]?.discount}</div>
             </div>
             <div className='text-sm text-[#1BA685] font-bold'>inclusive of all taxes</div>
             <div className='font-bold mt-3 text-sm'>MORE COLORS</div>            
@@ -101,14 +114,22 @@ export default function AddToBag() {
               </button>
             </div>        
                        
-            <button className='bg-[#FF527B] text-white w-[50%] h-[55px] my-8 rounded-md' onClick={() => (handleAddItem(bagProducts[0]), dispatch(increment()))}>
+            <button className='bg-[#FF527B] text-white w-[50%] h-[55px] my-8 rounded-md' onClick={() => handleAddItem(bagProducts[0])}>
               <div className='flex flex-row justify-center items-center'>
               <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="size-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
               </svg>
-                <div className='mx-2 font-bold'>ADD TO BAG</div>
+              <div className='mx-2 font-bold'>
+                {inCart ? (
+                  <Link to="/place-order" className="flex items-center gap-2">
+                    GO TO CART <FaArrowRight />
+                  </Link>
+                ) : (
+                  "ADD TO BAG"
+                )}
               </div>
-            </button>            
+              </div>
+            </button>
             <hr/>
             <div className='my-8'>
               <p className='my-2'>100% Original Products</p>

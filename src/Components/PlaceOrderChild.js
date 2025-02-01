@@ -1,20 +1,32 @@
 import React from 'react'
 import campus from '../assets/campus.webp'
 import { useSelector, useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react';
 import { decrement, increment } from './Redux/reducer'
+import {updateQty} from './Redux/reducer'
 
 
 
 export default function PlaceOrderChild({item}) { 
   const count = useSelector((state) => state.counter.value)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [itemQty, setItemQty] = useState(item.qty);
+  const [itemSize, setItemSize] = useState(true);
+
+  const itemUpdateQty = (qty, id) => {
+    dispatch(updateQty({qty, id}));
+    const quantity = itemQty + qty;
+    if(quantity > 0) {
+      setItemQty(quantity);
+    }
+  }
 
   return (
     <>
       <div className='w-[48%] h-[200px] place-content-center border-[#cdcfd7] border-[1px] bg-white'>
         <div className='w-[95%] h-[90%] justify-self-center flex'>
           <div className='w-[23%]'>
-            <img className='h-[100%]' src={campus} alt=''/>
+            <img className='h-[100%]' src={item.img} alt=''/>
           </div>
           <div>
             <div className='font-bold text-[14px] text-[#535766] py-1'>{item.name}</div>
@@ -23,7 +35,7 @@ export default function PlaceOrderChild({item}) {
             <div className='flex py-3 items-center'>
               <div className='px-2'>
                 <label className='text-sm font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1' htmlFor="size">Size:</label>
-                <select className='text-[14px] font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1' name="size" id="sizes">
+                <select className='text-[14px] font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1' name="size" id="sizes" defaultValue={item.size}>
                   <option value="38">38</option>
                   <option value="40">40</option>
                   <option value="42">42</option>
@@ -32,16 +44,16 @@ export default function PlaceOrderChild({item}) {
               </div>
               <div className='flex px-2 items-center'>
                 <label className='text-sm font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1' htmlFor="size">Qty:</label>
-                <div className='text-[14px] font-bold text-green-600 bg-[#F5F5F6] mr-2 px-3 py-1'>{count}</div>                
+                <div className='text-[14px] font-bold text-green-600 bg-[#F5F5F6] mr-2 px-3 py-1'>{itemQty}</div>                
                 <div className='flex'>
-                  <button className='font-bold  ml-2 text-[#535766] px-3 py-1 bg-[#F5F5F6] border-[2px]' onClick={() => dispatch(decrement())}>-</button>
-                  <button className='font-bold text-[#535766] px-3 py-1 bg-[#F5F5F6] border-[2px]' onClick={() => dispatch(increment())}>+</button>
+                  <button className='font-bold  ml-2 text-[#535766] px-3 py-1 bg-[#F5F5F6] border-[2px]' onClick={() => itemUpdateQty(-1, item.id)}>-</button>
+                  <button className='font-bold text-[#535766] px-3 py-1 bg-[#F5F5F6] border-[2px]' onClick={() => itemUpdateQty(1, item.id)}>+</button>
                 </div>
               </div>
             </div>
             <div className='flex py-1'>
-              <div className='text-[14px] font-bold px-2 text-[#535766]'>&#8377; 599</div>
-              <div className='text-[14px] text-[#F16565]'>63% OFF</div>
+              <div className='text-[14px] font-bold px-2 text-[#535766]'>&#8377; {item.price}</div>
+              <div className='text-[14px] text-[#F16565]'>{item.discount}</div>
             </div>
             <div className='flex items-center'>
               <div className='px-1'>
