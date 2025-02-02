@@ -5,10 +5,10 @@ import { Link } from "react-router";
 
 export default function Navbar() { 
   return (
-   <nav className='fixed w-full z-50 top-0 flex h-[80px] shadow-md bg-white'>
+   <nav className='fixed w-full z-50 top-0 flex h-[80px] shadow-md bg-white'>      
       <div className='w-[10%]'>
-        <img className='h-[60px] justify-self-center mt-[10px] ml-[30px] cursor-pointer' src={myntraLogo} alt=''/>
-      </div>
+        <Link to='/'><img className='h-[60px] justify-self-center mt-[10px] ml-[30px] cursor-pointer' src={myntraLogo} alt=''/></Link>
+      </div>      
       <div className='w-[40%] flex flex-row justify-center items-center'>
         <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-blue-500'>
           <Link to='/view-products'><div className='font-bold text-sm' >MEN</div></Link>

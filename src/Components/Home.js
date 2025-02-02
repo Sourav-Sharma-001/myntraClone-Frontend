@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import Products from './Products';
 import Advert from './Advert';
 import { Link } from 'react-router-dom';
+import BottomPage from './BottomPage';
 
 
 export default function Home() {
@@ -34,19 +35,20 @@ export default function Home() {
       <h1 className='mb-4 text-4xl font-bold text-gray-900 md:text-5xl lg:text-5xl dark:text-[#413A36] flex justify-center font-Roboto'>Shop by Category</h1>      
       <div className='grid grid-cols-6 gap-1 size-[85%] place-self-centersize-[80%] place-self-center'>
           {pItems}
-        </div>
-        <div className='grid grid-cols-6 gap-1 size-[85%] place-self-center'>
-          {pItems}
-        </div>
-        <div className='grid grid-cols-6 gap-1 size-[85%] place-self-center'>
-          {pItems}
-        </div>
-        <div className='grid grid-cols-6 gap-1 size-[85%] place-self-center'>
-          {pItems}
-        </div>
-        <div className='grid grid-cols-6 gap-1 size-[85%] place-self-center'>
-          {pItems}
-        </div>       
+      </div>
+      <div className='grid grid-cols-6 gap-1 size-[85%] place-self-center'>
+        {pItems}
+      </div>
+      <div className='grid grid-cols-6 gap-1 size-[85%] place-self-center'>
+        {pItems}
+      </div>
+      <div className='grid grid-cols-6 gap-1 size-[85%] place-self-center'>
+        {pItems}
+      </div>
+      <div className='grid grid-cols-6 gap-1 size-[85%] place-self-center'>
+        {pItems}
+      </div>
+      <BottomPage/>
     </>
   )
 }

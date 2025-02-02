@@ -16,7 +16,7 @@ export default function ViewProductsChild({viewData}) {
         <div className=' w-[70%] truncate text-[#7D808B] text-sm pb-1 pl-2'>{viewData.title}</div>
         <div className='flex '>
           <div className='text-xs font-bold pl-2'>Rs. {viewData.price}</div>
-          <div className='text-xs text-red-400 pl-2'>{viewData.discount}</div>
+          <div className='text-xs text-red-400 pl-2'>({viewData.discount}% OFF)</div>
         </div>        
       </div>
     </Link>

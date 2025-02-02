@@ -6,6 +6,7 @@ import PlaceOrderChild from './PlaceOrderChild';
 import { useSelector } from 'react-redux';
 
 
+
 export default function PlaceOrder() {   
 
   const items = useSelector((state) => state.addItems);
@@ -17,6 +18,39 @@ export default function PlaceOrder() {
     );    
   }); 
   
+  const platFormFee = 20;
+
+// Find the lowest item MRP and discount
+const minItemMRP = Math.min(...items.map(item => Number(item.price) || 0));
+const minItemDiscount = Math.min(
+    ...items.map(item => (Number(item.price) * Number(item.discount) / 100) || 0)
+);
+
+// Ensure `qty` is at least 0 to prevent negative totals
+const totalMRP = items.reduce((acc, item) => {
+    const price = Number(item.price) || 0;
+    const qty = Math.max(Number(item.qty) || 0, 0); // Prevent negative qty
+    return acc + price * qty;
+}, 0);
+
+// Ensure `totalDiscount` does not go below the lowest possible discount
+const totalDiscount = items.reduce((acc, item) => {
+    const price = Number(item.price) || 0;
+    const discount = Number(item.discount) || 0;
+    const qty = Math.max(Number(item.qty) || 0, 0);
+    return acc + (price * discount / 100) * qty;
+}, 0);
+
+// Prevent totalMRP and totalDiscount from dropping below at least one item
+const adjustedTotalMRP = Math.max(totalMRP, minItemMRP);
+const adjustedTotalDiscount = Math.max(totalDiscount, minItemDiscount);
+
+// Final total amount calculation
+const totalAmount = adjustedTotalMRP - adjustedTotalDiscount + platFormFee;
+
+
+
+
 
   return (
     <>
@@ -47,8 +81,8 @@ export default function PlaceOrder() {
           {getItems?.length > 0 ? (          
             getItems          
           ): (
-            <div className='w-[48%] flex justify-center h-[200px] items-center text-[#535766] bg-white'>
-              Cart is empty! You have not added any items yet.
+            <div className='w-[48%] flex place-self-center font-semibold h-[200px] items-center text-[#535766] bg-white'>
+              Cart's empty! You have not added any items yet.
             </div>
           )}
         </div>
@@ -62,11 +96,11 @@ export default function PlaceOrder() {
             <div className='text-[14px] text-[#535766] font-bold mb-2'>PRICE DETAILS (0 Item)</div>
             <div className='flex justify-between text-[14px] py-1'>
               <div className='text-[#535766]'>Total MRP</div>
-              <div>&#8377; 1999</div>
+              <div>&#8377; {totalMRP}</div>
             </div>
             <div className='flex justify-between text-[14px] py-1'>
               <div className='text-[#535766]'>Discount on MRP</div>
-              <div className='text-[#535766]'>- &#8377; 999</div>
+              <div className='text-[#535766]'>- &#8377; {Math.floor(totalDiscount)}</div>
             </div>
             <div className='flex justify-between text-[14px] py-1'>
               <div className='text-[#535766]'>Coupon Discount</div>
@@ -74,7 +108,7 @@ export default function PlaceOrder() {
             </div>
             <div className='flex justify-between text-[14px] py-1'>
               <div className='text-[#535766]'>Platform Fee <strong className='text-[#F16565] font-bold px-1'>Know More</strong></div>
-              <div className='text-[#535766]'>&#8377; 20</div>
+              <div className='text-[#535766]'>&#8377; {platFormFee}</div>
             </div>
             <div className='py-1'>
               <div className='flex justify-between text-[14px]'>
@@ -86,14 +120,14 @@ export default function PlaceOrder() {
             <hr className='my-2'/>
             <div className='flex justify-between text-[14px] py-1'>
               <div className='text-[#535766] font-bold'>Total Amount</div>
-              <div className='text-[#535766] font-bold'>&#8377; 1000</div>
+              <div className='text-[#535766] font-bold'>&#8377; {Math.floor(totalAmount)}</div>
             </div>
             <Link to='/address-details'>
               <button className='bg-[#FF527B] font-bold text-white w-[100%] h-[45px] my-8 rounded-md'>PLACE ORDER</button>  
             </Link>        
           </div>
         </div>
-      </div>
+      </div>      
     </>
   )
 }

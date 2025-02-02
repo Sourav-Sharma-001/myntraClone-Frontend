@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { addItem } from './Redux/reducer';
 import { FaArrowRight } from "react-icons/fa";
+import BottomPage from './BottomPage';
 
 
 export default function AddToBag() {
@@ -15,7 +16,7 @@ export default function AddToBag() {
   const count = useSelector((state) => state.counter.value); 
   const storeItems = useSelector((state) => state.addItems);
   const [inCart, setInCart] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();  
 
   const getBagProducts = () => {
     axios.get(`http://localhost:4001/getProductDetails?id=${id}`)
@@ -58,6 +59,8 @@ export default function AddToBag() {
   return (
     <>
       <Navbar/>
+
+
       <div className='flex justify-between mt-[100px]'>
         <div className='pl-6 grid grid-cols-2 gap-1 w-[58%] place-items-center'>
           {bagPro}          
@@ -212,6 +215,8 @@ export default function AddToBag() {
           <div className='text-sm text-[#FF527B] font-bold mt-2 mb-3'>View Plan</div>  
         </div>        
       </div>
+
+      <BottomPage/>
     </>
   )
 }

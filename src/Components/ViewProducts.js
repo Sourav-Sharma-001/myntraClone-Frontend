@@ -2,6 +2,8 @@ import axios from 'axios';
 import ViewProductsChild from './ViewProductsChild';
 import Navbar from './Navbar';
 import { useEffect, useState } from 'react';
+import BottomPage from './BottomPage';
+
 
 export default function ViewProducts() {
   const [viPro, setViPro] = useState([]);
@@ -32,7 +34,8 @@ export default function ViewProducts() {
         <div className='grid grid-cols-6 gap-6 py-4'>
           {pView}
         </div>         
-      </div>       
+      </div>
+      <BottomPage/>       
     </>
   )
 }

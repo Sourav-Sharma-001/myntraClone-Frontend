@@ -56,7 +56,7 @@ export default function PlaceOrderChild({item}) {
             </div>
             <div className='flex py-1'>
               <div className='text-[14px] font-bold px-2 text-[#535766]'>&#8377; {item.price}</div>
-              <div className='text-[14px] text-[#F16565]'>{item.discount}</div>
+              <div className='text-[14px] text-[#F16565]'>({item.discount}% OFF)</div>
             </div>
             <div className='flex items-center'>
               <div className='px-1'>
