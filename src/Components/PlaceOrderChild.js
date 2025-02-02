@@ -12,9 +12,9 @@ export default function PlaceOrderChild({item}) {
   const [itemQty, setItemQty] = useState(item.qty);    
 
   const itemUpdateQty = (qty, id) => {
-    dispatch(updateQty({qty, id}));
     const quantity = itemQty + qty;
     if(quantity > 0) {
+      dispatch(updateQty({qty, id}));
       setItemQty(quantity);
     }
   }
