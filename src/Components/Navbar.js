@@ -11,22 +11,22 @@ export default function Navbar() {
       </div>
       <div className='w-[40%] flex flex-row justify-center items-center'>
         <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-blue-500'>
-          <div className='font-bold text-sm' href='#'>MEN</div>
+          <Link to='/view-products'><div className='font-bold text-sm' >MEN</div></Link>
         </div>
         <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-red-500'>
-          <div className='font-bold text-sm' href='#'>WOMEN</div>
+        <Link to='/view-products'><div className='font-bold text-sm' >WOMEN</div></Link>
         </div>
         <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-purple-500'>
-          <div className='font-bold text-sm' href='#'>KIDS</div>
+        <Link to='/view-products'><div className='font-bold text-sm' >KIDS</div></Link>
         </div>
         <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-pink-500'>
-          <div className='font-bold text-sm' href='#'>HOME & LIVING</div>
+        <Link to='/view-products'><div className='font-bold text-sm' >HOME & LIVING</div></Link>
         </div>
         <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-green-500'>
-          <div className='font-bold text-sm' href='#'>BEAUTY</div>
+        <Link to='/view-products'><div className='font-bold text-sm' >BEAUTY</div></Link>
         </div>
         <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-yellow-500'>
-          <div className='font-bold text-sm' href='#'>STUDIO</div>
+        <Link to='/view-products'><div className='font-bold text-sm' >STUDIO</div></Link>
         </div>
       </div>
       <div className='w-[35%] flex justify-center items-center relative'>

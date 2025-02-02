@@ -22,7 +22,7 @@ export default function PlaceOrder() {
     <>
       <div className='bg-white h-[80px] flex'>
         <div className='w-[15%] flex justify-center items-center'>
-          <img className='h-[60px] justify-self-center' src={image} alt=''/>
+          <Link to='/'><img className='h-[60px] justify-self-center' src={image} alt=''/></Link>
         </div>
         <div className='w-[70%] flex justify-center items-center text-[11px]'>
           <div className='p-2 text-[#535766] font-semibold'>B A G</div>-------------<div className='p-2 text-[#535766] font-semibold'>A D D R E S S</div>-------------<div className='p-2 text-[#535766] font-semibold'>P A Y M E N T</div>
@@ -40,8 +40,18 @@ export default function PlaceOrder() {
 
 
       <div className='flex my-10'>
-        <div className='w-[10%]'></div>        
-        {getItems}
+        <div className='w-[10%]'></div>
+
+
+        <div className='w-[48%] h-[200px]'>
+          {getItems?.length > 0 ? (          
+            getItems          
+          ): (
+            <div className='w-[48%] flex justify-center h-[200px] items-center text-[#535766] bg-white'>
+              Cart is empty! You have not added any items yet.
+            </div>
+          )}
+        </div>
 
 
         <div className='w-[2%]'></div>

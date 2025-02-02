@@ -48,13 +48,20 @@ export const AddItems = createSlice({
           s.qty += action.payload.qty;
         }
       })
+    },
+    updateSize: (state, action) => {
+      state.forEach((s) => {
+        if(action.payload.id === s.id) {
+          s.size = action.payload.size;
+        }
+      })
     }
   },
 });
 
 // Exporting action creators
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
-export const { addItem, updateQty } = AddItems.actions;
+export const { addItem, updateQty, updateSize } = AddItems.actions;
 
 // Exporting reducers
 export const counterReducer = counterSlice.reducer;

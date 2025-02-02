@@ -1,17 +1,15 @@
 import React from 'react'
-import campus from '../assets/campus.webp'
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react';
-import { decrement, increment } from './Redux/reducer'
-import {updateQty} from './Redux/reducer'
+import { useState } from 'react';
+import {updateQty} from './Redux/reducer';
+import {updateSize} from './Redux/reducer';
 
 
 
 export default function PlaceOrderChild({item}) { 
   const count = useSelector((state) => state.counter.value)
   const dispatch = useDispatch();
-  const [itemQty, setItemQty] = useState(item.qty);
-  const [itemSize, setItemSize] = useState(true);
+  const [itemQty, setItemQty] = useState(item.qty);    
 
   const itemUpdateQty = (qty, id) => {
     dispatch(updateQty({qty, id}));
@@ -20,10 +18,15 @@ export default function PlaceOrderChild({item}) {
       setItemQty(quantity);
     }
   }
+  
+  const handleSizeChange = (event) => {
+    const selectedSize = event.target.value;
+    dispatch(updateSize({id: item.id, size: selectedSize}));
+  };
 
   return (
-    <>
-      <div className='w-[48%] h-[200px] place-content-center border-[#cdcfd7] border-[1px] bg-white'>
+    <>      
+      <div className='size-[100%] place-content-center border-[#cdcfd7] border-[1px] bg-white'>
         <div className='w-[95%] h-[90%] justify-self-center flex'>
           <div className='w-[23%]'>
             <img className='h-[100%]' src={item.img} alt=''/>
@@ -35,7 +38,7 @@ export default function PlaceOrderChild({item}) {
             <div className='flex py-3 items-center'>
               <div className='px-2'>
                 <label className='text-sm font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1' htmlFor="size">Size:</label>
-                <select className='text-[14px] font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1' name="size" id="sizes" defaultValue={item.size}>
+                <select className='text-[14px] font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1' name="size" id="sizes" defaultValue={item.size} onChange={handleSizeChange}>
                   <option value="38">38</option>
                   <option value="40">40</option>
                   <option value="42">42</option>
