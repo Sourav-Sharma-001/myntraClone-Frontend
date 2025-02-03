@@ -8,8 +8,8 @@ export default function Auth() {
   return (
     <>
       <Navbar/>   
-      <div className='flex justify-center mt-[10%]'>
-        <div className='w-[25%] border-[2px] rounded-lg px-2'>
+      <div className='flex justify-center mt-[150px]'>
+        <div className='w-[25%] border-[2px] rounded-lg px-2 flex-shrink-0 max-sm:w-[60%] max-md:w-[45%]'>
           <div className='grid grid-cols-2 py-[5px]'>
             <button className={isLogIn? "bg-pink-600 text-white py-[5px] rounded font-semibold":"bg-slate-100 py-[5px] rounded font-semibold"} onClick={()=>setLogIn(true)}>Log in</button>
             <button className={!isLogIn? "bg-pink-600 text-white py-[5px] rounded font-semibold": "bg-slate-100 py-[5px] rounded font-semibold"} onClick={()=>setLogIn(false)}>Sign up</button>

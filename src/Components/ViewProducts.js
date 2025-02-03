@@ -31,7 +31,7 @@ export default function ViewProducts() {
     <>
       <Navbar/>      
       <div className='mt-[100px]'>
-        <div className='grid grid-cols-6 gap-6 py-4'>
+        <div className='grid grid-cols-6 gap-6 py-4 max-sm:grid max-sm:grid-cols-2'>
           {pView}
         </div>         
       </div>

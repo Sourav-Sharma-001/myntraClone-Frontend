@@ -8,7 +8,7 @@ export default function ViewProductsChild({viewData}) {
   return (
     <>
     <Link to={`/view-products/${viewData._id}`}>
-      <div className='h-[350px]'>
+      <div className='h-[350px] '>
         <div className='h-[80%] w-[95%] place-self-center'>
           <img className='size-[100%]' src={base64String} alt='Base64 representation'/>
         </div>

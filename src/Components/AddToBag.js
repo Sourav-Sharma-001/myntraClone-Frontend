@@ -61,11 +61,11 @@ export default function AddToBag() {
       <Navbar/>
 
 
-      <div className='flex justify-between mt-[100px]'>
-        <div className='pl-6 grid grid-cols-2 gap-1 w-[58%] place-items-center'>
+      <div className='flex justify-between mt-[100px] max-sm:grid max-sm:grid-cols-1'>
+        <div className='pl-6 grid grid-cols-2 gap-1 w-[58%] place-items-center max-sm:grid max-sm:grid-cols-2 max-sm:w-[100%] max-sm:pl-0'>
           {bagPro}          
         </div>
-        <div className='w-[40%]'>
+        <div className='w-[40%] max-sm:w-[100%] max-sm:ml-3'>
           <div>
             <div className='font-bold text-2xl'>{bagProducts[0]?.name}</div>
             <div className='text-[#7D808B] text-lg'>{bagProducts[0]?.title}</div>
@@ -82,7 +82,7 @@ export default function AddToBag() {
             <hr/>
             <div className='flex flex-row py-2'>
               <div className='text-2xl font-bold'>&#8377; {bagProducts[0]?.price}</div>
-              <div className='text-xl font-bold text-[#FF905A] pl-2 pt-0.5'>{bagProducts[0]?.discount}</div>
+              <div className='text-xl font-bold text-[#FF905A] pl-2 pt-0.5'>({bagProducts[0]?.discount}% OFF)</div>
             </div>
             <div className='text-sm text-[#1BA685] font-bold'>inclusive of all taxes</div>
             <div className='font-bold mt-3 text-sm'>MORE COLORS</div>            
