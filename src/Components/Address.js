@@ -26,33 +26,13 @@ const AddressForm = () => {
 
   const platFormFee = 20;
 
-  // Find the lowest item MRP and discount
-  const minItemMRP = Math.min(...items.map(item => Number(item.price) || 0));
-  const minItemDiscount = Math.min(
-      ...items.map(item => (Number(item.price) * Number(item.discount) / 100) || 0)
-  );
+  const totalMRP = items.reduce((acc, item) => acc + (Number(item.price) || 0) * Math.max(Number(item.qty) || 0, 0), 0);
 
-  // Ensure `qty` is at least 0 to prevent negative totals
-  const totalMRP = items.reduce((acc, item) => {
-      const price = Number(item.price) || 0;
-      const qty = Math.max(Number(item.qty) || 0, 0); // Prevent negative qty
-      return acc + price * qty;
-  }, 0);
+  const totalDiscount = items.reduce((acc, item) => acc + ((Number(item.price) * Number(item.discount) / 100) || 0) * Math.max(Number(item.   qty) || 0, 0), 0);
 
-  // Ensure `totalDiscount` does not go below the lowest possible discount
-  const totalDiscount = items.reduce((acc, item) => {
-      const price = Number(item.price) || 0;
-      const discount = Number(item.discount) || 0;
-      const qty = Math.max(Number(item.qty) || 0, 0);
-      return acc + (price * discount / 100) * qty;
-  }, 0);
-
-  // Prevent totalMRP and totalDiscount from dropping below at least one item
-  const adjustedTotalMRP = Math.max(totalMRP, minItemMRP);
-  const adjustedTotalDiscount = Math.max(totalDiscount, minItemDiscount);
-
-  // Final total amount calculation
-  const totalAmount = (adjustedTotalMRP - adjustedTotalDiscount + platFormFee) || 0;
+  const totalAmount = Math.max(totalMRP, ...items.map(item => Number(item.price) || 0)) - 
+    Math.max(totalDiscount, ...items.map(item => (Number(item.price) * Number(item.discount) / 100) || 0)) + 
+    platFormFee;
 
   return (
     <>
@@ -204,10 +184,7 @@ const AddressForm = () => {
             <div className='flex justify-between text-[14px] py-1'>
               <div className='text-[#535766] font-bold'>Total Amount</div>
               <div className='text-[#535766] font-bold'>&#8377; {Math.floor(totalAmount)}</div>
-            </div>
-            {/* <Link to='/address-details'>
-              <button className='bg-[#FF527B] font-bold text-white w-[100%] h-[45px] my-8 rounded-md hover:bg-pink-700 transition duration-300'>PLACE ORDER</button>  
-            </Link>         */}
+            </div>            
           </div>
         </div>
     </div>

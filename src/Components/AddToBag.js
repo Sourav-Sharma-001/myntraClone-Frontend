@@ -12,8 +12,7 @@ import BottomPage from './BottomPage';
 export default function AddToBag() {
   const { id } = useParams();
   const [bagProducts, setBagProducts] = useState([]); 
-  const [selectedSize, setSelectedSize] = useState(38); 
-  const count = useSelector((state) => state.counter.value); 
+  const [selectedSize, setSelectedSize] = useState(38);   
   const storeItems = useSelector((state) => state.addItems);
   const [inCart, setInCart] = useState(false);
   const dispatch = useDispatch();  

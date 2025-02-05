@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react';
-import {updateQty} from './Redux/reducer';
+import {removeItem, updateQty} from './Redux/reducer';
 import {updateSize} from './Redux/reducer';
+import { RxCross2 } from "react-icons/rx";
 
 
 
@@ -23,6 +24,11 @@ export default function PlaceOrderChild({item}) {
     const selectedSize = event.target.value;
     dispatch(updateSize({id: item.id, size: selectedSize}));
   };
+
+  const handleRemoveItem = () => {
+    dispatch(removeItem({id: item.id}));
+  }
+  
 
   return (
     <>      
@@ -66,8 +72,11 @@ export default function PlaceOrderChild({item}) {
               </div>
               <div className='text-sm text-[#535766]'><strong>14 days</strong> return availbale</div>
             </div>
+          </div>
+          <div className='h-5 ml-[27%]'>
+            <button onClick={handleRemoveItem}><RxCross2 /></button>
           </div>            
-        </div>
+        </div>        
       </div>
     </>
   )

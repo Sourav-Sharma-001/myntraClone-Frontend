@@ -23,8 +23,8 @@ export const counterSlice = createSlice({
   },
 });
 
-// Add Items Slice
-const initialItemsState = [];
+
+const initialItemsState = JSON.parse(localStorage.getItem("items")) || []; 
 
 export const AddItems = createSlice({
   name: 'ADD_ITEMS',
@@ -41,27 +41,38 @@ export const AddItems = createSlice({
         size: action.payload.size,
         discount: action.payload.discount
       });
+      localStorage.setItem("items", JSON.stringify(state)); 
     },
     updateQty: (state, action) => {
       state.forEach((s) => {
         if(action.payload.id === s.id) {
           s.qty += action.payload.qty;
         }
-      })
+      });
+      localStorage.setItem("items", JSON.stringify(state)); 
     },
     updateSize: (state, action) => {
       state.forEach((s) => {
         if(action.payload.id === s.id) {
           s.size = action.payload.size;
         }
-      })
+      });
+      localStorage.setItem("items", JSON.stringify(state)); 
+    },
+    removeItem: (state, action) => {
+      const updatedState = state.filter(item => item.id !== action.payload.id); 
+      localStorage.setItem("items", JSON.stringify(updatedState));
+      return updatedState;
+    },    
+    setItems: (state, action) => {
+      return action.payload;  
     }
   },
 });
 
 // Exporting action creators
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
-export const { addItem, updateQty, updateSize } = AddItems.actions;
+export const { addItem, updateQty, updateSize, removeItem } = AddItems.actions;
 
 // Exporting reducers
 export const counterReducer = counterSlice.reducer;

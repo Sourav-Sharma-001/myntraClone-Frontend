@@ -1,54 +1,41 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import image from '../assets/logo.png';
 import secure from '../assets/secure.png';
 import { Link } from 'react-router-dom';
 import PlaceOrderChild from './PlaceOrderChild';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from './Redux/reducer';
 
 
 
-export default function PlaceOrder() {   
-
-  const items = useSelector((state) => state.addItems);  
+export default function PlaceOrder() { 
+  const items = useSelector((state) => state.addItems);
+  const dispatch = useDispatch();
 
   const getItems = items.map((item, index) => {
     return(
       <PlaceOrderChild key={index} item={item}/>
     );    
-  }); 
+  });    
+
+  useEffect(() => {
+    const storedItems = JSON.parse(localStorage.getItem("items")) || [];
+    if (storedItems.length > 0) {
+      dispatch(addItem(storedItems)); 
+    }
+  }, [dispatch]);  
   
   const platFormFee = 20;
+  
+  const totalMRP = items.reduce((acc, item) => acc + (Number(item.price) || 0) * Math.max(Number(item.qty) || 0, 0), 0);
 
-  // Find the lowest item MRP and discount
-  const minItemMRP = Math.min(...items.map(item => Number(item.price) || 0));
-  const minItemDiscount = Math.min(
-      ...items.map(item => (Number(item.price) * Number(item.discount) / 100) || 0)
-  );
+  const totalDiscount = items.reduce((acc, item) => acc + ((Number(item.price) * Number(item.discount) / 100) || 0) * Math.max(Number(item.   qty) || 0, 0), 0);
 
-  // Ensure `qty` is at least 0 to prevent negative totals
-  const totalMRP = items.reduce((acc, item) => {
-      const price = Number(item.price) || 0;
-      const qty = Math.max(Number(item.qty) || 0, 0); // Prevent negative qty
-      return acc + price * qty;
-  }, 0);
+  const totalAmount = Math.max(totalMRP, ...items.map(item => Number(item.price) || 0)) - 
+    Math.max(totalDiscount, ...items.map(item => (Number(item.price) * Number(item.discount) / 100) || 0)) + 
+    platFormFee;
 
-  // Ensure `totalDiscount` does not go below the lowest possible discount
-  const totalDiscount = items.reduce((acc, item) => {
-      const price = Number(item.price) || 0;
-      const discount = Number(item.discount) || 0;
-      const qty = Math.max(Number(item.qty) || 0, 0);
-      return acc + (price * discount / 100) * qty;
-  }, 0);
-
-  // Prevent totalMRP and totalDiscount from dropping below at least one item
-  const adjustedTotalMRP = Math.max(totalMRP, minItemMRP);
-  const adjustedTotalDiscount = Math.max(totalDiscount, minItemDiscount);
-
-  // Final total amount calculation
-  const totalAmount = (adjustedTotalMRP - adjustedTotalDiscount + platFormFee) || 0;
-
-
-
+  localStorage.setItem('items', JSON.stringify(items));
 
 
   return (
@@ -57,7 +44,7 @@ export default function PlaceOrder() {
         <div className='w-[15%] flex justify-center items-center'>
           <Link to='/'><img className='h-[60px] justify-self-center' src={image} alt=''/></Link>
         </div>
-        <div className='w-[70%] flex justify-center items-center max-sm:hidden max-sm:flex-nowrap text-[11...00px]'>
+        <div className='w-[70%] flex justify-center items-center max-sm:hidden max-sm:flex-nowrap text-[11px]'>
           <div className='p-2 text-[#535766] font-semibold max-sm:text-[8px] max-sm:flex-nowrap'>B A G</div>
           <div className='max-sm:text-[3px] max-sm:flex-nowrap'>-------------</div>
           <div className='p-2 text-[#535766] font-semibold max-sm:text-[8px] max-sm:flex-nowrap'>A D D R E S S</div>
