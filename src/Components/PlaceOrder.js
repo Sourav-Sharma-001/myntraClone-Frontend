@@ -53,12 +53,16 @@ export default function PlaceOrder() {
 
   return (
     <>
-      <div className='bg-white h-[80px] flex'>
+      <div className='bg-white h-[80px] flex max-sm:justify-between max-sm:px-5'>
         <div className='w-[15%] flex justify-center items-center'>
           <Link to='/'><img className='h-[60px] justify-self-center' src={image} alt=''/></Link>
         </div>
-        <div className='w-[70%] flex justify-center items-center text-[11px]'>
-          <div className='p-2 text-[#535766] font-semibold'>B A G</div>-------------<div className='p-2 text-[#535766] font-semibold'>A D D R E S S</div>-------------<div className='p-2 text-[#535766] font-semibold'>P A Y M E N T</div>
+        <div className='w-[70%] flex justify-center items-center max-sm:hidden max-sm:flex-nowrap text-[11...00px]'>
+          <div className='p-2 text-[#535766] font-semibold max-sm:text-[8px] max-sm:flex-nowrap'>B A G</div>
+          <div className='max-sm:text-[3px] max-sm:flex-nowrap'>-------------</div>
+          <div className='p-2 text-[#535766] font-semibold max-sm:text-[8px] max-sm:flex-nowrap'>A D D R E S S</div>
+          <div className='max-sm:text-[3px] max-sm:flex-nowrap'>-------------</div>
+          <div className='p-2 text-[#535766] font-semibold max-sm:text-[8px] max-sm:flex-nowrap'>P A Y M E N T</div>
         </div>
         <div className='flex items-center'>
           <div>
@@ -71,16 +75,16 @@ export default function PlaceOrder() {
         </div>
       </div>
 
-
-      <div className='flex my-10'>
+      
+      <div className='flex my-10 max-sm:grid max-sm:grid-cols-1'>
         <div className='w-[10%]'></div>
 
 
-        <div className='w-[48%] h-[200px]'>
+        <div className='w-[48%] h-[200px] max-sm:w-[100%] '>
           {getItems?.length > 0 ? (          
             getItems          
           ): (
-            <div className='w-[48%] flex place-self-center font-semibold h-[200px] items-center text-[#535766] bg-white'>
+            <div className='w-[48%] flex place-self-center font-semibold h-[200px] items-center text-[#535766] bg-white max-sm:w-[100%] max-sm:justify-center'>
               Cart's empty! You have not added any items yet.
             </div>
           )}
@@ -90,7 +94,7 @@ export default function PlaceOrder() {
         <div className='w-[2%]'></div>
 
 
-        <div className='w-[30%] place-items-center place-content-center'>
+        <div className='w-[30%] place-items-center place-content-center max-sm:w-[100%]'>
           <div className='size-[90%]'>
             <div className='text-[14px] text-[#535766] font-bold mb-2'>PRICE DETAILS (0 Item)</div>
             <div className='flex justify-between text-[14px] py-1'>
@@ -126,7 +130,7 @@ export default function PlaceOrder() {
             </Link>        
           </div>
         </div>
-      </div>      
+      </div>           
     </>
   )
 }

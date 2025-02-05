@@ -6,27 +6,27 @@ import { Link } from "react-router";
 export default function Navbar() { 
   return (
    <nav className='fixed w-full z-50 top-0 flex h-[80px] shadow-md bg-white'>      
-      <div className='w-[10%] max-sm:w-[7%]'>
+      <div className='w-[10%] max-sm:w-[8%]'>
         <Link to='/'><img className='h-[60px] justify-self-center mt-[10px] ml-[30px] cursor-pointer max-sm:h-[40px] max-sm:mt-5' src={myntraLogo} alt=''/></Link>
       </div>      
-      <div className='w-[40%] flex flex-row justify-center items-center max-sm:flex-wrap'>
-        <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-blue-500 max-sm:px-[5px] max-sm:h-[20%]'>
-          <Link to='/view-products'><div className='font-bold text-sm max-sm:text-[10px] max-sm:m-0' >MEN</div></Link>
+      <div className='w-[40%] flex flex-row justify-center items-center max-sm:flex max-sm:flex-wrap max-sm:w-[30%] max-sm:ml-5'>
+        <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-blue-500 max-sm:px-[5px]   max-sm:h-[20%]'>
+          <Link to='/view-products'><div className='font-bold text-sm max-sm:text-[9px] max-sm:m-0' >MEN</div></Link>
         </div>
         <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-red-500 max-sm:px-[5px] max-sm:h-[20%]'>
-        <Link to='/view-products'><div className='font-bold text-sm max-sm:text-[10px] max-sm:m-0' >WOMEN</div></Link>
+        <Link to='/view-products'><div className='font-bold text-sm max-sm:text-[9px] max-sm:m-0' >WOMEN</div></Link>
         </div>
         <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-purple-500 max-sm:px-[5px] max-sm:h-[20%]'>
-        <Link to='/view-products'><div className='font-bold text-sm max-sm:text-[10px] max-sm:m-0' >KIDS</div></Link>
+        <Link to='/view-products'><div className='font-bold text-sm max-sm:text-[9px] max-sm:m-0' >KIDS</div></Link>
         </div>
         <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-pink-500 max-sm:px-[5px] max-sm:h-[20%]'>
-        <Link to='/view-products'><div className='font-bold text-sm max-sm:text-[10px] max-sm:m-0' >HOME & LIVING</div></Link>
+        <Link to='/view-products'><div className='font-bold text-sm max-sm:text-[9px] max-sm:m-0' >HOME & LIVING</div></Link>
         </div>
         <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-green-500 max-sm:px-[5px] max-sm:h-[20%]'>
-        <Link to='/view-products'><div className='font-bold text-sm max-sm:text-[10px] max-sm:m-0' >BEAUTY</div></Link>
+        <Link to='/view-products'><div className='font-bold text-sm max-sm:text-[9px] max-sm:m-0' >BEAUTY</div></Link>
         </div>
         <div className='px-[15px] content-center h-[100%] cursor-pointer hover:border-b-4 py-4 hover:border-b-yellow-500 max-sm:px-[5px] max-sm:h-[20%]'>
-        <Link to='/view-products'><div className='font-bold text-sm max-sm:text-[10px] max-sm:m-0' >STUDIO</div></Link>
+        <Link to='/view-products'><div className='font-bold text-sm max-sm:text-[9px] max-sm:m-0' >STUDIO</div></Link>
         </div>
       </div>
       <div className='w-[35%] flex justify-center items-center relative'>

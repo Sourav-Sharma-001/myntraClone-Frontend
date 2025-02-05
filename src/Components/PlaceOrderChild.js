@@ -28,17 +28,17 @@ export default function PlaceOrderChild({item}) {
     <>      
       <div className='size-[100%] place-content-center border-[#cdcfd7] border-[1px] bg-white'>
         <div className='w-[95%] h-[90%] justify-self-center flex'>
-          <div className='w-[23%]'>
+          <div className='w-[23%] max-sm:w-[30%]'>
             <img className='h-[100%]' src={item.img} alt=''/>
           </div>
-          <div>
-            <div className='font-bold text-[14px] text-[#535766] py-1'>{item.name}</div>
+          <div className='max-sm:ml-2'>
+            <div className='font-bold text-[14px] text-[#535766] py-1 '>{item.name}</div>
             <div className='text-[14px]'>{item.title}</div>
             <div className='text-[12px] text-[#535766]'>Sold by: Flashstar Commerce</div>
             <div className='flex py-3 items-center'>
-              <div className='px-2'>
-                <label className='text-sm font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1' htmlFor="size">Size:</label>
-                <select className='text-[14px] font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1' name="size" id="sizes" defaultValue={item.size} onChange={handleSizeChange}>
+              <div className='px-2 max-sm:flex max-sm:px-0'>
+                <label className='text-sm font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1 max-sm:px-0' htmlFor="size">Size:</label>
+                <select className='text-[14px] font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1 max-sm:px-0' name="size" id="sizes" defaultValue={item.size} onChange={handleSizeChange}>
                   <option value="38">38</option>
                   <option value="40">40</option>
                   <option value="42">42</option>
@@ -48,8 +48,8 @@ export default function PlaceOrderChild({item}) {
               <div className='flex px-2 items-center'>
                 <label className='text-sm font-bold text-[#535766] bg-[#F5F5F6] px-3 py-1' htmlFor="size">Qty:</label>
                 <div className='text-[14px] font-bold text-green-600 bg-[#F5F5F6] mr-2 px-3 py-1'>{itemQty}</div>                
-                <div className='flex'>
-                  <button className='font-bold  ml-2 text-[#535766] px-3 py-1 bg-[#F5F5F6] border-[2px]' onClick={() => itemUpdateQty(-1, item.id)}>-</button>
+                <div className='flex max-sm:grid max-sm:grid-cols-1'>
+                  <button className='font-bold  ml-2 text-[#535766] px-3 py-1 bg-[#F5F5F6] border-[2px] max-sm:ml-0' onClick={() => itemUpdateQty(-1, item.id)}>-</button>
                   <button className='font-bold text-[#535766] px-3 py-1 bg-[#F5F5F6] border-[2px]' onClick={() => itemUpdateQty(1, item.id)}>+</button>
                 </div>
               </div>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 
@@ -57,7 +56,7 @@ const AddressForm = () => {
 
   return (
     <>
-    <div className="w-[65%] flex justify-between place-self-center">
+    <div className="w-[65%] flex justify-between place-self-center max-sm:w-[90%] max-sm:grid max-sm:grid-cols-1">
       <div className="flex justify-center items-center bg-gray-100">
         <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-xl font-semibold text-center mb-4">Add New Address</h2>
@@ -175,7 +174,7 @@ const AddressForm = () => {
       </div>
 
       
-      <div className='w-[45%] place-items-center place-content-center'>
+      <div className='w-[45%] place-items-center place-content-center max-sm:w-[90%] max-sm:grid max-sm:grid-cols-1'>
           <div className='size-[90%]'>
             <div className='text-[14px] text-[#535766] font-bold mb-2'>PRICE DETAILS (0 Item)</div>
             <div className='flex justify-between text-[14px] py-1'>
@@ -206,9 +205,9 @@ const AddressForm = () => {
               <div className='text-[#535766] font-bold'>Total Amount</div>
               <div className='text-[#535766] font-bold'>&#8377; {Math.floor(totalAmount)}</div>
             </div>
-            <Link to='/address-details'>
+            {/* <Link to='/address-details'>
               <button className='bg-[#FF527B] font-bold text-white w-[100%] h-[45px] my-8 rounded-md hover:bg-pink-700 transition duration-300'>PLACE ORDER</button>  
-            </Link>        
+            </Link>         */}
           </div>
         </div>
     </div>
