@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import image from '../assets/logo.png';
 import secure from '../assets/secure.png';
 import { Link } from 'react-router-dom';
@@ -9,21 +9,22 @@ import { addItem } from './Redux/reducer';
 
 
 export default function PlaceOrder() { 
-  const items = useSelector((state) => state.addItems);
-  const dispatch = useDispatch();
+  const storeItems = useSelector((state) => state.addItems);
+  const [items, setItems] = useState(storeItems);
+  // const dispatch = useDispatch();
 
   const getItems = items.map((item, index) => {
     return(
-      <PlaceOrderChild key={index} item={item}/>
+      <PlaceOrderChild key={index} item={item} setItems={setItems} items={items}/>
     );    
   });    
 
-  useEffect(() => {
-    const storedItems = JSON.parse(localStorage.getItem("items")) || [];
-    if (storedItems.length > 0) {
-      dispatch(addItem(storedItems)); 
-    }
-  }, [dispatch]);  
+  // useEffect(() => {
+  //   setItems(JSON.parse(localStorage.getItem("items")) || []);
+  //   if (items.length > 0) {
+  //     dispatch(addItem(items)); 
+  //   }
+  // }, []);  
   
   const platFormFee = 20;
   
@@ -33,9 +34,7 @@ export default function PlaceOrder() {
 
   const totalAmount = Math.max(totalMRP, ...items.map(item => Number(item.price) || 0)) - 
     Math.max(totalDiscount, ...items.map(item => (Number(item.price) * Number(item.discount) / 100) || 0)) + 
-    platFormFee;
-
-  localStorage.setItem('items', JSON.stringify(items));
+    platFormFee;  
 
 
   return (
@@ -113,7 +112,7 @@ export default function PlaceOrder() {
               <div className='text-[#535766] font-bold'>&#8377; {Math.floor(totalAmount)}</div>
             </div>
             <Link to='/address-details'>
-              <button className='bg-[#FF527B] font-bold text-white w-[100%] h-[45px] my-8 rounded-md hover:bg-pink-700 transition duration-300'>PLACE ORDER</button>  
+              <button className='bg-[#FF527B] font-bold text-white w-[100%] h-[45px] my-8 rounded-md hover:bg-pink-700 transition duration-300'>CHEKCOUT</button>  
             </Link>        
           </div>
         </div>

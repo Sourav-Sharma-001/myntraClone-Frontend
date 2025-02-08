@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// Counter Slice
+
 const initialCounterState = {
   value: 0,
 };
@@ -63,6 +63,10 @@ export const AddItems = createSlice({
       const updatedState = state.filter(item => item.id !== action.payload.id); 
       localStorage.setItem("items", JSON.stringify(updatedState));
       return updatedState;
+    },
+    clear: (state, action) => {
+      state = [];
+      localStorage.clear();      
     },    
     setItems: (state, action) => {
       return action.payload;  
@@ -72,7 +76,7 @@ export const AddItems = createSlice({
 
 // Exporting action creators
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
-export const { addItem, updateQty, updateSize, removeItem } = AddItems.actions;
+export const { addItem, updateQty, updateSize, removeItem, clear } = AddItems.actions;
 
 // Exporting reducers
 export const counterReducer = counterSlice.reducer;

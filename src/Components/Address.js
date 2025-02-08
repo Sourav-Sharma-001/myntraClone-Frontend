@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
+import { addItem, clear } from "./Redux/reducer";
 
 
 const AddressForm = () => {
   const items = useSelector((state) => state.addItems); 
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     fullName: "",
     mobile: "",
@@ -22,6 +25,17 @@ const AddressForm = () => {
     e.preventDefault();
     console.log("Submitted Address:", formData);
     alert("Address saved successfully!");
+  };  
+
+  const isFormValid = () => {
+    return (
+      formData.fullName &&
+      formData.mobile &&
+      formData.address &&
+      formData.city &&
+      formData.state &&
+      formData.pincode
+    );
   };
 
   const platFormFee = 20;
@@ -142,13 +156,24 @@ const AddressForm = () => {
               />
             </div>
 
+            <div className="form-check mb-3">
+              <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
+              <label className="form-check-label font-semibold ml-1" htmlFor="flexRadioDefault2">
+                cash on Delivery
+              </label>
+            </div>
+
             {/* Submit Button */}
+            <Link to='/'>
             <button
               type="submit"
-              className="w-full bg-[#FF527B] text-white py-2 rounded-lg hover:bg-pink-700 transition duration-300"
+              className={`w-full bg-[#FF527B] text-white py-2 rounded-lg hover:bg-pink-700 transition duration-300 ${!isFormValid() ? 'cursor-not-allowed opacity-50' : ''}`}
+              onClick={() => dispatch(clear())}
+              disabled={!isFormValid()}
             >
-              Save Address
+              PLACE ORDER
             </button>
+          </Link>
           </form>
         </div>
       </div>
