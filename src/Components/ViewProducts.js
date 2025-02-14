@@ -11,7 +11,7 @@ export default function ViewProducts() {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const recieveProducts = () => {    
-    axios.get(`http://${apiUrl}/view`)
+    axios.get(`${apiUrl}/view`)
       .then((res) => res.data)
       .then((finalRes) => {      
         setViPro(finalRes);
