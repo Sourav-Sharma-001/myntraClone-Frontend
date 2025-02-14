@@ -8,9 +8,10 @@ import loading from '../assets/loading.gif';
 export default function ViewProducts() {
   const [viPro, setViPro] = useState([]);
   const [isLoading, setIsLoading] = useState(true); 
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const recieveProducts = () => {    
-    axios.get('http://localhost:4001/view')
+    axios.get(`http://${apiUrl}/view`)
       .then((res) => res.data)
       .then((finalRes) => {      
         setViPro(finalRes);

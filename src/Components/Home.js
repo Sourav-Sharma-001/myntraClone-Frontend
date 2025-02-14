@@ -9,9 +9,10 @@ import BottomPage from './BottomPage';
 
 export default function Home() {
   const [finalProducts, setFinalProduct] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
   
   const getProduct = () => {
-    axios.get('http://localhost:4001/home')
+    axios.get(`http://${apiUrl}/home`)
     .then((res) => res.data)
     .then((finalRes) => {
       setFinalProduct(finalRes);

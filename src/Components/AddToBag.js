@@ -16,10 +16,11 @@ export default function AddToBag() {
   const storeItems = useSelector((state) => state.addItems);
   const [inCart, setInCart] = useState(false); 
   const [isDisabled, setIsDisabled] = useState(true); 
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch(); 
+  const apiUrl = process.env.REACT_APP_API_URL; 
 
   const getBagProducts = () => {
-    axios.get(`http://localhost:4001/getProductDetails?id=${id}`)
+    axios.get(`http://${apiUrl}/getProductDetails?id=${id}`)
     .then((res) => res.data)
     .then((finalRes) => {            
       setBagProducts(finalRes);

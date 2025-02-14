@@ -4,27 +4,17 @@ import secure from '../assets/secure.png';
 import { Link } from 'react-router-dom';
 import PlaceOrderChild from './PlaceOrderChild';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from './Redux/reducer';
-
 
 
 export default function PlaceOrder() { 
   const storeItems = useSelector((state) => state.addItems);
-  const [items, setItems] = useState(storeItems);
-  // const dispatch = useDispatch();
+  const [items, setItems] = useState(storeItems);  
 
   const getItems = items.map((item, index) => {
     return(
       <PlaceOrderChild key={index} item={item} setItems={setItems} items={items}/>
     );    
-  });    
-
-  // useEffect(() => {
-  //   setItems(JSON.parse(localStorage.getItem("items")) || []);
-  //   if (items.length > 0) {
-  //     dispatch(addItem(items)); 
-  //   }
-  // }, []);  
+  });  
   
   const platFormFee = 20;
   
