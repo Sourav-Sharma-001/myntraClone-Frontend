@@ -24,7 +24,7 @@ export default function PlaceOrder() {
 
   const totalAmount = Math.max(totalMRP, ...items.map(item => Number(item.price) || 0)) - 
     Math.max(totalDiscount, ...items.map(item => (Number(item.price) * Number(item.discount) / 100) || 0)) + 
-    platFormFee;  
+    platFormFee;   
 
 
   return (
