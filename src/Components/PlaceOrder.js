@@ -8,7 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function PlaceOrder() { 
   const storeItems = useSelector((state) => state.addItems);
-  const [items, setItems] = useState(storeItems);  
+  const [items, setItems] = useState(storeItems);
+  const [MRP, setMRP] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [amount, setAmount] = useState("");
+
 
   const getItems = items.map((item, index) => {
     return(
@@ -16,15 +20,20 @@ export default function PlaceOrder() {
     );    
   });  
   
-  const platFormFee = 20;
-  
-  const totalMRP = items.reduce((acc, item) => acc + (Number(item.price) || 0) * Math.max(Number(item.qty) || 0, 0), 0);
+  const platFormFee = 20;    
 
-  const totalDiscount = items.reduce((acc, item) => acc + ((Number(item.price) * Number(item.discount) / 100) || 0) * Math.max(Number(item.   qty) || 0, 0), 0);
+  useEffect(() => {    
+    const totalMRP = storeItems.reduce((acc, item) => acc + (Number(item.price) || 0) * Math.max(Number(item.qty) || 0, 0), 0);
+    
+    const totalDiscount = storeItems.reduce((acc, item) => acc + ((Number(item.price) * Number(item.discount) / 100) || 0) * Math.max(Number(item.qty) || 0, 0), 0);
+   
+    const totalAmount = totalMRP - totalDiscount + platFormFee;
+    
+    setMRP(totalMRP);
+    setDiscount(totalDiscount);
+    setAmount(totalAmount);
+  }, [storeItems]);
 
-  const totalAmount = Math.max(totalMRP, ...items.map(item => Number(item.price) || 0)) - 
-    Math.max(totalDiscount, ...items.map(item => (Number(item.price) * Number(item.discount) / 100) || 0)) + 
-    platFormFee;   
 
 
   return (
@@ -72,14 +81,14 @@ export default function PlaceOrder() {
 
         <div className='w-[30%] place-items-center place-content-center max-sm:w-[100%]'>
           <div className='size-[90%]'>
-            <div className='text-[14px] text-[#535766] font-bold mb-2'>PRICE DETAILS (0 Item)</div>
+            <div className='text-[14px] text-[#535766] font-bold mb-2'>PRICE DETAILS</div>
             <div className='flex justify-between text-[14px] py-1'>
               <div className='text-[#535766]'>Total MRP</div>
-              <div>&#8377; {totalMRP}</div>
+              <div>&#8377; {MRP}</div>
             </div>
             <div className='flex justify-between text-[14px] py-1'>
               <div className='text-[#535766]'>Discount on MRP</div>
-              <div className='text-[#535766]'>- &#8377; {Math.floor(totalDiscount)}</div>
+              <div className='text-[#535766]'>- &#8377; {Math.floor(discount)}</div>
             </div>
             <div className='flex justify-between text-[14px] py-1'>
               <div className='text-[#535766]'>Coupon Discount</div>
@@ -99,7 +108,7 @@ export default function PlaceOrder() {
             <hr className='my-2'/>
             <div className='flex justify-between text-[14px] py-1'>
               <div className='text-[#535766] font-bold'>Total Amount</div>
-              <div className='text-[#535766] font-bold'>&#8377; {Math.floor(totalAmount)}</div>
+              <div className='text-[#535766] font-bold'>&#8377; {Math.floor(amount)}</div>
             </div>
             <Link to='/address-details'>
               <button className='bg-[#FF527B] font-bold text-white w-[100%] h-[45px] my-8 rounded-md hover:bg-pink-700 transition duration-300'>CHEKCOUT</button>  
