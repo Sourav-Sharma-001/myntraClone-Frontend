@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 import { useState } from 'react';
-import { addItem, removeItem, updateQty} from './Redux/reducer';
+import { removeItem, updateQty} from './Redux/reducer';
 import {updateSize} from './Redux/reducer';
 import { RxCross2 } from "react-icons/rx";
 
@@ -26,7 +26,7 @@ export default function PlaceOrderChild({item, items, setItems}) {
 
   const handleRemoveItem = () => {
     dispatch(removeItem({id: item.id}));
-    const itemsAfterRemove = items.filter((i) => i.id != item.id);
+    const itemsAfterRemove = items.filter((i) => i.id !== item.id);
     setItems(itemsAfterRemove);
   } 
   
