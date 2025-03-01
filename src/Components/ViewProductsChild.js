@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
+
 export default function ViewProductsChild({viewData}) {
 
   const base64String = `data:image/jpeg;base64,${viewData.thumbnail}`;
