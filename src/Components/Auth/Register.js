@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Navbar from "../Navbar";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -24,11 +25,11 @@ const Register = () => {
     const handleError = (msg) => {
         toast.error(msg, { position: 'top-right' });
     };
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:4001/signup", formData);
+            const res = await axios.post("http://localhost:4001/auth/signup", formData);
             const { success, message } = res.data; // ✅ Get correct response data
 
             if (success) {
@@ -46,6 +47,8 @@ const Register = () => {
     };
 
     return (
+        <>
+        <Navbar/>
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <div className="bg-white p-6 rounded-lg shadow-lg w-96">
                 <h2 className="text-2xl font-bold text-center">Register</h2>
@@ -58,6 +61,7 @@ const Register = () => {
             </div>
             <ToastContainer position="top-right" autoClose={3000} />
         </div>
+        </>
     );
 };
 

@@ -43,7 +43,7 @@ export default function AddToBag() {
     if(!inCart) {
       dispatch(addItem({  
         id : id,
-        img: `data:image/jpeg;base64,${JSON.parse(bagProducts[0].image)[0]}`,   
+        img: `data:image/jpeg;base64,${JSON.parse(bagProducts[0].image)}`,   
         name: item.name,
         title: item.title,
         price: item.price,

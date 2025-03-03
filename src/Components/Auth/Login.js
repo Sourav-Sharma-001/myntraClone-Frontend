@@ -24,11 +24,11 @@ const Login = () => {
     const handleError = (msg) => {
         toast.error(msg, { position: "top-right" });
     };
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:4001/login", formData);
+            const res = await axios.post("http://localhost:4001/auth/login", formData);
             const { success, message, token } = res.data; // ✅ Extract correct response data
 
             if (success) {
