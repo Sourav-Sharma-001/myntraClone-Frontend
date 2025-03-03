@@ -20,7 +20,7 @@ export default function AddToBag() {
   const apiUrl = process.env.REACT_APP_API_URL; 
 
   const getBagProducts = () => {
-    axios.get(`${apiUrl}/getProductDetails?id=${id}`)
+    axios.get(`${apiUrl}/view?id=${id}`)
     .then((res) => res.data)
     .then((finalRes) => {            
       setBagProducts(finalRes);
