@@ -20,7 +20,7 @@ export default function AddToBag() {
   const apiUrl = process.env.REACT_APP_API_URL; 
 
   const getBagProducts = () => {
-    axios.get(`${apiUrl}/view?id=${id}`)
+    axios.get(`${apiUrl}/getProductsDetails?id=${id}`)
     .then((res) => res.data)
     .then((finalRes) => {            
       setBagProducts(finalRes);
@@ -43,7 +43,7 @@ export default function AddToBag() {
     if(!inCart) {
       dispatch(addItem({  
         id : id,
-        img: `data:image/jpeg;base64,${JSON.parse(bagProducts[0].image)}`,   
+        img: `data:image/jpeg;base64,${JSON.parse(bagProducts[0].image)[0]}`,   
         name: item.name,
         title: item.title,
         price: item.price,
