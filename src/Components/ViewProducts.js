@@ -10,8 +10,13 @@ export default function ViewProducts() {
   const [isLoading, setIsLoading] = useState(true); 
   const apiUrl = process.env.REACT_APP_API_URL;
 
+  
   const recieveProducts = () => {    
-    axios.get(`${apiUrl}/view`)
+    axios.get(`${apiUrl}/view`, {
+      headers: {
+        Authorization: `Bearer ${token}` // Include the Bearer token
+      }
+      })
       .then((res) => res.data)
       .then((finalRes) => {      
         setViPro(finalRes);
@@ -21,6 +26,7 @@ export default function ViewProducts() {
         console.error('Error:', error);
         setIsLoading(false);
       });
+    };
   };
 
   useEffect(() => {

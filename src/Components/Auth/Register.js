@@ -14,6 +14,7 @@ const Register = () => {
 
     const navigate = useNavigate(); // ✅ Correctly define navigate
 
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -26,10 +27,12 @@ const Register = () => {
         toast.error(msg, { position: 'top-right' });
     };
     
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:4001/auth/signup", formData);
+            const res = await axios.post(`${apiUrl}/auth/signup`, formData);
             const { success, message } = res.data; // ✅ Get correct response data
 
             if (success) {
