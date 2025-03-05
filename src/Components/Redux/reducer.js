@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 
+
 const initialCounterState = {
   value: 0,
 };
@@ -74,10 +75,35 @@ export const AddItems = createSlice({
   },
 });
 
+const initialState = {
+  token: null,
+  user: null,
+  isAuthenticated: false,
+};
+
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+      loginSuccess: (state, action) => {
+          state.token = action.payload.token;
+          state.user = action.payload.user;
+          state.isAuthenticated = true;
+      },
+      logout: (state) => {
+          state.token = null;
+          state.user = null;
+          state.isAuthenticated = false;
+      },
+  },
+});
+
 // Exporting action creators
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 export const { addItem, updateQty, updateSize, removeItem, clear } = AddItems.actions;
+export const { loginSuccess, logout } = authSlice.actions;
 
 // Exporting reducers
 export const counterReducer = counterSlice.reducer;
 export const addItemsReducer = AddItems.reducer;
+export const authReducer =  authSlice.reducer;

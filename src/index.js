@@ -12,6 +12,7 @@ import PlaceOrder from './Components/PlaceOrder';
 import Address from './Components/Address';
 import Login from './Components/Auth/Login';
 import Register from './Components/Auth/Register';
+import ProtectedRoute from './Components/Auth/protectedRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -20,6 +21,7 @@ root.render(
     <Provider store={store}>
       <Router>
         <Routes>
+        <Route path="/" element={<ProtectedRoute><App /></ProtectedRoute>} />
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
