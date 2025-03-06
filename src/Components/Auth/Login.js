@@ -1,15 +1,12 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { loginSuccess } from "../Redux/reducer";
 import axios from "axios";
 
 const Login = () => {
-    const [formData, setFormData] = useState({ email: "", password: "" });
-    const dispatch = useDispatch();
+    const [formData, setFormData] = useState({ email: "", password: "" });   
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -25,13 +22,15 @@ const Login = () => {
             const { success, message, jwtToken, name, email } = res.data;
 
             if (success) {
+                const currentTime = Date.now();
                 toast.success(message || "Login successful!");
 
-                const userData = { name, email };
-                dispatch(loginSuccess({ token: jwtToken, user: userData }));
+                const userData = { name, email };                
 
                 localStorage.setItem("token", jwtToken);
                 localStorage.setItem("user", JSON.stringify(userData));
+                localStorage.setItem("timestamp", currentTime);
+
 
                 setTimeout(() => navigate("/"), 1000);
             } else {
