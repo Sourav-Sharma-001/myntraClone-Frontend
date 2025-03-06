@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
-
 const initialCounterState = {
   value: 0,
 };
@@ -14,7 +12,7 @@ export const counterSlice = createSlice({
       state.value += 1;
     },
     decrement: (state) => {
-      if(state.value > 1) {
+      if (state.value > 1) {
         state.value -= 1;
       }
     },
@@ -24,86 +22,92 @@ export const counterSlice = createSlice({
   },
 });
 
-
-const initialItemsState = JSON.parse(localStorage.getItem("items")) || []; 
+const initialItemsState = JSON.parse(localStorage.getItem("items")) || [];
 
 export const AddItems = createSlice({
   name: 'ADD_ITEMS',
   initialState: initialItemsState,
   reducers: {
     addItem: (state, action) => {
-      state.push({  
-        id: action.payload.id,
-        img: action.payload.img,      
-        name: action.payload.name, 
-        title: action.payload.title,
-        price: action.payload.price,
-        qty: action.payload.qty,
-        size: action.payload.size,
-        discount: action.payload.discount
-      });
-      localStorage.setItem("items", JSON.stringify(state)); 
-    },
-    updateQty: (state, action) => {
-      state.forEach((s) => {
-        if(action.payload.id === s.id) {
-          s.qty += action.payload.qty;
-        }
-      });
-      localStorage.setItem("items", JSON.stringify(state)); 
-    },
-    updateSize: (state, action) => {
-      state.forEach((s) => {
-        if(action.payload.id === s.id) {
-          s.size = action.payload.size;
-        }
-      });
-      localStorage.setItem("items", JSON.stringify(state)); 
-    },
-    removeItem: (state, action) => {
-      const updatedState = state.filter(item => item.id !== action.payload.id); 
+      const updatedState = [
+        ...state,
+        {
+          id: action.payload.id,
+          img: action.payload.img,
+          name: action.payload.name,
+          title: action.payload.title,
+          price: action.payload.price,
+          qty: action.payload.qty,
+          size: action.payload.size,
+          discount: action.payload.discount,
+        },
+      ];
       localStorage.setItem("items", JSON.stringify(updatedState));
       return updatedState;
     },
-    clear: (state, action) => {
-      state = [];
-      localStorage.clear();      
-    },    
+    updateQty: (state, action) => {
+      const updatedState = state.map((s) =>
+        s.id === action.payload.id ? { ...s, qty: s.qty + action.payload.qty } : s
+      );
+      localStorage.setItem("items", JSON.stringify(updatedState));
+      return updatedState;
+    },
+    updateSize: (state, action) => {
+      const updatedState = state.map((s) =>
+        s.id === action.payload.id ? { ...s, size: action.payload.size } : s
+      );
+      localStorage.setItem("items", JSON.stringify(updatedState));
+      return updatedState;
+    },
+    removeItem: (state, action) => {
+      const updatedState = state.filter(item => item.id !== action.payload.id);
+      localStorage.setItem("items", JSON.stringify(updatedState));
+      return updatedState;
+    },
+    clear: () => {
+      localStorage.removeItem("items");
+      return [];
+    },
     setItems: (state, action) => {
-      return action.payload;  
-    }
+      localStorage.setItem("items", JSON.stringify(action.payload));
+      return action.payload;
+    },
   },
 });
 
-const initialState = {
-  token: null,
-  user: null,
-  isAuthenticated: false,
+const initialAuthState = {
+  token: localStorage.getItem("token") || null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
+  isAuthenticated: !!localStorage.getItem("token"),
 };
 
 const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: initialAuthState,
   reducers: {
-      loginSuccess: (state, action) => {
-          state.token = action.payload.token;
-          state.user = action.payload.user;
-          state.isAuthenticated = true;
-      },
-      logout: (state) => {
-          state.token = null;
-          state.user = null;
-          state.isAuthenticated = false;
-      },
+    loginSuccess: (state, action) => {
+      state.token = action.payload.token;
+      state.user = action.payload.user;
+      state.isAuthenticated = true;
+
+      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
+    },
+    logout: (state) => {
+      state.token = null;
+      state.user = null;
+      state.isAuthenticated = false;
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    },
   },
 });
 
-// Exporting action creators
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
-export const { addItem, updateQty, updateSize, removeItem, clear } = AddItems.actions;
+export const { addItem, updateQty, updateSize, removeItem, clear, setItems } = AddItems.actions;
 export const { loginSuccess, logout } = authSlice.actions;
 
-// Exporting reducers
 export const counterReducer = counterSlice.reducer;
 export const addItemsReducer = AddItems.reducer;
-export const authReducer =  authSlice.reducer;
+export const authReducer = authSlice.reducer;

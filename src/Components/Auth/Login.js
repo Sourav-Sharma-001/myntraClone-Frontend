@@ -2,16 +2,13 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
-import axios from "axios";
+import api from "./api"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginSuccess } from "../Redux/reducer";
 
 const Login = () => {
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-    });
+    const [formData, setFormData] = useState({ email: "", password: "" });
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -19,18 +16,20 @@ const Login = () => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:4001/auth/login", formData);
+            const res = await api.post("/auth/login", formData);
             const { success, message, jwtToken, name, email } = res.data;
 
             if (success) {
                 toast.success(message || "Login successful!");
-                
-                // Save token and user data in Redux
-                dispatch(loginSuccess({ token: jwtToken, user: { name, email } }));
+
+                const userData = { name, email };
+                dispatch(loginSuccess({ token: jwtToken, user: userData }));
+                localStorage.setItem("token", jwtToken);
+                localStorage.setItem("user", JSON.stringify(userData));
 
                 setTimeout(() => {
                     navigate("/");

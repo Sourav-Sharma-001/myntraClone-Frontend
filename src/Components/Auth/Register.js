@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,7 +12,7 @@ const Register = () => {
         password: "",
     });
 
-    const navigate = useNavigate(); // ✅ Correctly define navigate
+    const navigate = useNavigate();
 
 
     const handleChange = (e) => {
@@ -33,12 +33,12 @@ const Register = () => {
         e.preventDefault();
         try {
             const res = await axios.post(`${apiUrl}/auth/signup`, formData);
-            const { success, message } = res.data; // ✅ Get correct response data
+            const { success, message } = res.data; 
 
             if (success) {
                 handleSuccess(message || "Registration successful");
                 setTimeout(() => {
-                    navigate('/login'); // ✅ Correct usage
+                    navigate('/login'); 
                 }, 1000);
             } else {
                 handleError(message || "Registration failed");
