@@ -1,23 +1,38 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import Navbar from './Navbar';
 import Products from './Products';
 import Advert from './Advert';
 import { Link } from 'react-router-dom';
 import BottomPage from './BottomPage';
+import axios from 'axios';
 
 
 export default function Home() {
   const [finalProducts, setFinalProduct] = useState([]);
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_API_URL;  
   
   const getProduct = () => {
-    axios.get(`${apiUrl}/home`)
+    const token = localStorage.getItem("token");
+    
+    if (!token) {
+        console.error("No token found, authentication required!");
+        return;
+    }
+
+    axios.get(`${apiUrl}/home`, {
+        headers: {
+            authorization: `Bearer ${token}`, 
+        },
+    })
     .then((res) => res.data)
     .then((finalRes) => {
-      setFinalProduct(finalRes);
+        setFinalProduct(finalRes);
     })
-  }
+    .catch((error) => {
+        console.error("Error fetching data:", error.response?.data || error.message);
+    });  
+  };
+
 
   useEffect(() => {
     getProduct();    
