@@ -14,17 +14,23 @@ export default function AddToBag() {
   const [bagProducts, setBagProducts] = useState([]); 
   const [selectedSize, setSelectedSize] = useState(38);   
   const storeItems = useSelector((state) => state.addItems);
-  const [inCart, setInCart] = useState(false); 
-  const [isDisabled, setIsDisabled] = useState(true); 
+  const [inCart, setInCart] = useState(false);    
   const dispatch = useDispatch(); 
   const apiUrl = process.env.REACT_APP_API_URL; 
 
   const getBagProducts = () => {
-    axios.get(`${apiUrl}/getProductDetails?id=${id}`)
+    axios.get(`${apiUrl}/getProductsDetails?id=${id}`, {
+      headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
     .then((res) => res.data)
     .then((finalRes) => {            
-      setBagProducts(finalRes);
-    });
+        setBagProducts(finalRes);
+    })
+    .catch((error) => {
+        console.error("Error fetching product details:", error);
+    });  
   }
 
   useEffect(() => {
