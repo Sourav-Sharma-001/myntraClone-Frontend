@@ -42,7 +42,7 @@ const AddressForm = () => {
 
   const totalMRP = items.reduce((acc, item) => acc + (Number(item.price) || 0) * Math.max(Number(item.qty) || 0, 0), 0);
 
-  const totalDiscount = items.reduce((acc, item) => acc + ((Number(item.price) * Number(item.discount) / 100) || 0) * Math.max(Number(item.   qty) || 0, 0), 0);
+  const totalDiscount = items.reduce((acc, item) => acc + ((Number(item.price) * Number(item.discount) / 100) || 0) * Math.max(Number(item.qty) || 0, 0), 0);
 
   const totalAmount = Math.max(totalMRP, ...items.map(item => Number(item.price) || 0)) - 
     Math.max(totalDiscount, ...items.map(item => (Number(item.price) * Number(item.discount) / 100) || 0)) + 

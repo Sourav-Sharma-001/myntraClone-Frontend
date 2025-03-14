@@ -31,7 +31,6 @@ const Login = () => {
                 localStorage.setItem("user", JSON.stringify(userData));
                 localStorage.setItem("timestamp", currentTime);
 
-
                 setTimeout(() => navigate("/"), 1000);
             } else {
                 toast.error(message || "Invalid email or password");
